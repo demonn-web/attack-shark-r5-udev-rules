@@ -1,27 +1,34 @@
-# attack-shark-r5-udev-rules
-Udev rules for Attack Shark R5 Ultra mouse on Linux
+# Setup Instructions
 
-in arch linux create new file in /etc/udev/rules.d/
+## Requirements
 
-name it 99-attackshark-mouse.rules
+- Node.js 14 or higher
+- npm 6 or higher
 
-paste this inside
+## Installation
 
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/demonn-web/attack-shark-r5-udev-rules.git
+   cd attack-shark-r5-udev-rules
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
+## Usage
 
-KERNEL=="hidraw*", ATTRS{idVendor}=="XXXX", ATTRS{idProduct}=="XXXX", MODE="0666", SYMLINK+="attackshark-r5-hidraw", TAG+="uaccess"
-SUBSYSTEM=="usb", ATTRS{idVendor}=="XXXX", ATTRS{idProduct}=="XXXX", MODE="0666", TAG+="uaccess"
+- To start the application, run:
+  ```bash
+  npm start
+  ```
 
-change XXXX to your mouse id by opening terminal and lsusb
+- For testing, run:
+  ```bash
+  npm test
+  ```
 
-first 4 numbers should go to ATTRS{idVendor}=="XXXX"
-last 4 numbers should go to ATTRS{idProduct}=="XXXX"
+## Contribution
 
-do this on both top and bottom lines
-
-save file
-
-Reload: sudo udevadm control --reload-rules && sudo udevadm trigger
-
-
-now the webdriver should work for you
+For detailed contribution guidelines, please refer to the CONTRIBUTING.md file.
