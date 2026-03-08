@@ -18,3 +18,10 @@ first 4 numbers should go to ATTRS{idVendor}=="XXXX"
 last 4 numbers should go to ATTRS{idProduct}=="XXXX"
 
 do this on both top and bottom lines
+
+save file
+
+Reload: sudo udevadm control --reload-rules && sudo udevadm trigger
+
+
+now the webdriver should work for you
