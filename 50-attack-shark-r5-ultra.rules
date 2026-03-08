@@ -1,0 +1,15 @@
+# Attack Shark R5 Ultra Rule Template
+
+This is a template for the `50-attack-shark-r5-ultra.rules` file. Please replace the placeholder IDs with your actual device IDs.
+
+## Instructions to Find Your Device ID
+To find your device IDs, you can use the command `lsusb` in your terminal. This command lists all USB devices connected to your system.
+
+1. Open your terminal.
+2. Type `lsusb` and press Enter.
+3. Look for the line corresponding to your Attack Shark R5 Ultra device.
+4. Note the ID in the format: `XXXX:YYYY`, where `XXXX` is the vendor ID and `YYYY` is the product ID.
+
+## Example Rule
+
+# ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="<YOUR_VENDOR_ID>", ATTR{idProduct}=="<YOUR_PRODUCT_ID>", MODE="0660", GROUP="plugdev"
