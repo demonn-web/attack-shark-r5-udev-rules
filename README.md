@@ -1,9 +1,49 @@
-# Attack Shark WebDriver
+Attack Shark R5 Mouse Webdriver Udev Setup Guide for Arch Linux and CachyOS
 
-The Attack Shark WebDriver is an essential tool that allows users to interact with Attack Shark's features programmatically. It simplifies the testing and automation processes by providing a direct interface to the application's functionalities.
+## Introduction
+This guide provides a comprehensive setup for the Attack Shark R5 mouse webdriver using udev on Arch Linux and CachyOS, covering device ID discovery, rule creation, troubleshooting, and verification.
 
-## Why Udev Rules are Necessary for Mouse Customization
+## 1. Discovering Device ID
+To identify the device ID of your Attack Shark R5 mouse, use the following command:
+```bash
+lsusb
+```
+Look for an entry corresponding to the Attack Shark R5 mouse. The output will show the Vendor ID and Product ID, which will look similar to this:
+```
+Bus 001 Device 005: ID 1234:abcd Attack Shark R5
+```
+Note down `1234` as the Vendor ID and `abcd` as the Product ID.
 
-Udev rules are critical for customizing mouse behavior in Linux environments. These rules help in defining how the operating system interacts with hardware devices, thus allowing users to configure device settings, permissions, and other behaviors that can enhance usability and performance. For mouse customization specifically, correct udev rules ensure that the right drivers and settings are applied, letting users achieve tailored mouse behaviors that suit their preferences.
+## 2. Creating Udev Rule
+To create a udev rule for the Attack Shark R5 mouse, follow these steps:
+1. Open a terminal and create a new udev rule file:
+   ```bash
+   sudo nano /etc/udev/rules.d/99-attackshark.rules
+   ```
+2. Add the following line to the file, replacing `<vendor_id>` and `<product_id>` with the values you noted:
+   ```
+   SUBSYSTEM=="input", ATTR{idVendor}=="<vendor_id>", ATTR{idProduct}=="<product_id>", MODE="0666"
+   ```
+   Example:
+   ```
+   SUBSYSTEM=="input", ATTR{idVendor}=="1234", ATTR{idProduct}=="abcd", MODE="0666"
+   ```
+3. Save and exit the text editor (in nano, press `CTRL + X`, then `Y`, and `Enter`).
 
-For more details, please visit [our project page](https://www.xvalleyinno.top/Test/#/project/items).
+## 3. Reloading Udev Rules
+To activate the new rules, reload the udev rules with the following command:
+```bash
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
+
+## 4. Troubleshooting
+- **Mouse not detected:** Ensure that the Vendor ID and Product ID are correct, and that your user has permission to access the device. Check the output of `dmesg` for errors.
+- **Permissions issues:** If regular users cannot access the mouse, make sure the udev rule sets the correct permissions.
+
+## 5. Verification
+To verify that the udev rule is working, plug in your Attack Shark R5 mouse and run:
+```bash
+devices
+```
+You should see your mouse listed with the correct permissions. If it’s not recognized, check your udev rule and troubleshoot as necessary.
